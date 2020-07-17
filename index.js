@@ -20,6 +20,7 @@ const getBook = async (bookUrl) => {
   return {
     title: $('h1.book__title').text().trim(),
     authors: $('.book__authors').text().trim(),
+    img: $('.book__cover img.book__img').attr('src'),
     link: $('.open-access-rail__block a')
       .map((i, el) => ({
         text: $(el).text().trim().split('  ')[0],
@@ -41,7 +42,10 @@ const getBook = async (bookUrl) => {
             [
               `## ${book.title}`,
               `${book.authors}`,
-              `[${book.link.text}](${book.link.url})\n`
+              `[${book.link.text}](${book.link.url})`,
+              '',
+              book.img ? `<img width="200" src="${MITURL}${book.img}"></img>` : '',
+              ''
             ].join('\n')
           )
         }
